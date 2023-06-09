@@ -64,10 +64,10 @@ class Question:
 
 
 class Theme:
-    questions = dict()
 
     def __init__(self, name):
         self.name = name
+        self.questions = dict()
 
     def add_question(self, q):
         self.questions[q.get_price()] = q
@@ -80,10 +80,10 @@ class Theme:
 
 
 class Round:
-    themes = dict()
 
     def __init__(self, name):
         self.name = name
+        self.themes = dict()
 
     def add_theme(self, t):
         self.themes[str(t)] = t
@@ -197,3 +197,8 @@ def parse_package(packet_path):
     return p
 
 p = parse_package(sys.argv[1])
+for i in p.rounds:
+    print(i.name)
+    for j in i.themes:
+        print(j)
+    print('\n\n\n')
