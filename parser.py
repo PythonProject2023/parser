@@ -2,6 +2,7 @@ import zipfile
 from pathlib import Path
 import sys
 import xml.etree.ElementTree as ET
+import urllib.parse
 
 
 class Answer:
@@ -9,9 +10,9 @@ class Answer:
         self.right = right
         self.wrong = wrong
         self.text = text
-        self.image = image
-        self.sound = sound
-        self.video = video
+        self.image = urllib.parse.quote(image[1:].encode('utf-8')) if image is not None else None
+        self.sound = urllib.parse.quote(sound[1:].encode('utf-8')) if sound is not None else None
+        self.video = urllib.parse.quote(video[1:].encode('utf-8')) if video is not None else None
 
     def get_right(self):
         return self.right
@@ -37,9 +38,9 @@ class Question:
     def __init__(self, price, text=None, image=None, sound=None, video=None):
         self.price = price
         self.text = text
-        self.image = image
-        self.sound = sound
-        self.video = video
+        self.image = urllib.parse.quote(image[1:].encode('utf-8')) if image is not None else None
+        self.sound = urllib.parse.quote(sound[1:].encode('utf-8')) if sound is not None else None
+        self.video = urllib.parse.quote(video[1:].encode('utf-8')) if video is not None else None
 
     def get_price(self):
         return self.price
@@ -202,3 +203,6 @@ for i in p.rounds:
     for j in i.themes:
         print(j)
     print('\n\n\n')
+
+#print(p.get_round(5).get_theme('Футболисты').get_question('100').get_answer().get_right())
+#print(p.get_round(5).get_theme('Угадай фильм по составу актеров').get_question('1200').get_image())
