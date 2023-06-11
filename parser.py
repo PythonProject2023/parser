@@ -2,8 +2,6 @@
 Парсер пакета.
 """
 import zipfile
-from pathlib import Path
-import sys
 import xml.etree.ElementTree as ET
 import urllib.parse
 
@@ -52,7 +50,7 @@ class Answer:
         :return: неправильный ответ.
         """
         return self.wrong
-    
+
     def get_text(self):
         """
         Получение текста ответа.
@@ -126,7 +124,7 @@ class Question:
         """
 
         return self.price
-    
+
     def get_text(self):
         """
         Получение текста вопроса.
@@ -378,7 +376,7 @@ def parse_package(packet_path):
                                 snd = 'Audio/' + atom.text[1:]
                             case 'video':
                                 vd = 'Video/' + atom.text[1:]
-                            case 'marker':   #всё, что дальше - ответ
+                            case 'marker':   # всё, что дальше - ответ
                                 marker_flag = True
                                 break
                             case _:
@@ -411,17 +409,17 @@ def parse_package(packet_path):
                     r_ans = r_ans.find('ns:answer', namespace).text
                     w_ans = q.find('ns:wrong', namespace)
                     if w_ans is not None:
-                        w_ans = w__ans.find('ns:answer', namespace).text  # надо найти пакет
+                        w_ans = w_ans.find('ns:answer', namespace).text  # надо найти пакет
                 ans = Answer(r_ans, w_ans, txt, im, snd, vd)
                 Q.add_answer(ans)
                 T.add_question(Q)
     return p
 
-#p = parse_package(sys.argv[1])
-#for i in p.rounds:
-#    print(i.name)
-#    for j in i.themes:
-#        print(j)
-#    print('\n\n\n')
+# p = parse_package(sys.argv[1])
+# for i in p.rounds:
+#     print(i.name)
+#     for j in i.themes:
+#         print(j)
+#     print('\n\n\n')
 
-#print(p.get_round(0).get_theme('Тело человека').get_question('200').get_text())
+# print(p.get_round(0).get_theme('Тело человека').get_question('200').get_text())
