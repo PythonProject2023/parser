@@ -167,6 +167,8 @@ def parse_package(packet_path):
                                 break
                             case _:
                                 txt = atom.text
+                    else:
+                        txt = atom.text
                 Q = Question(pr, txt, im, snd, vd)
                 if marker_flag:
                     r_ans = None
@@ -186,6 +188,8 @@ def parse_package(packet_path):
                                     vd = 'Video/' + atom.text[1:]
                                 case _:
                                     txt = atom.text
+                        else:
+                            txt = atom.text
                 else:
                     r_ans = q.find('ns:right', namespace)
                     r_ans = r_ans.find('ns:answer', namespace).text
@@ -204,6 +208,4 @@ for i in p.rounds:
         print(j)
     print('\n\n\n')
 
-#print(p.get_round(5).get_theme('Футболисты').get_question('100').get_answer().get_right())
-#print(p.get_round(5).get_theme('Угадай фильм по составу актеров').get_question('1200').get_image())
-#print(p.get_round(5).get_theme('Футболисты').get_question('100').get_image())
+#print(p.get_round(0).get_theme('Тело человека').get_question('200').get_text())
