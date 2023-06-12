@@ -4,6 +4,7 @@
 import zipfile
 import xml.etree.ElementTree as ET
 import urllib.parse
+import sys
 
 
 class Answer:
@@ -415,11 +416,11 @@ def parse_package(packet_path):
                 T.add_question(Q)
     return p
 
-# p = parse_package(sys.argv[1])
-# for i in p.rounds:
-#     print(i.name)
-#     for j in i.themes:
-#         print(j)
-#     print('\n\n\n')
+p = parse_package(sys.argv[1])
+for i in p.rounds:
+    print(i.name)
+    for j in i.themes:
+        print(j)
+    print('\n\n\n')
 
 # print(p.get_round(0).get_theme('Тело человека').get_question('200').get_text())
