@@ -333,8 +333,7 @@ def parse_package(packet_path):
     """
 
     with zipfile.ZipFile(packet_path) as file:
-        file_list = file.namelist()
-        with file.open(file_list[0]) as xml_file:
+        with file.open('content.xml') as xml_file:
             tree = ET.parse(xml_file)
             root = tree.getroot()
 
@@ -409,7 +408,8 @@ def parse_package(packet_path):
                     r_ans = r_ans.find('ns:answer', namespace).text
                     w_ans = q.find('ns:wrong', namespace)
                     if w_ans is not None:
-                        w_ans = w_ans.find('ns:answer', namespace).text  # надо найти пакет
+                        if w_ans.find('ns:answer', namespace) is not None:
+                            w_ans = w_ans.text  # надо найти пакет
                 ans = Answer(r_ans, w_ans, txt, im, snd, vd)
                 Q.add_answer(ans)
                 T.add_question(Q)
@@ -417,9 +417,9 @@ def parse_package(packet_path):
 
 # p = parse_package(sys.argv[1])
 # for i in p.rounds:
-#     print(i.name)
-#     for j in i.themes:
-#         print(j)
-#     print('\n\n\n')
+#    print(i.name)
+#    for j in i.themes:
+#        print(j)
+#    print('\n\n\n')
 
 # print(p.get_round(0).get_theme('Тело человека').get_question('200').get_text())
